@@ -44,7 +44,7 @@ DSSM 从下往上可以分为三层结构：输入层、表示层、匹配层
 
    ![](https://latex.codecogs.com/svg.latex?L=-log\prod\limits_{(Q,D^+)}{P(D^+|Q)})
 
-   残差会在表示层的 DNN 中反向传播，最终通过随机梯度下降（SGD）使模型收敛，得到各网络层的参数{ W<sub>i</sub> , b<sub>i</sub>$ }。
+   残差会在表示层的 DNN 中反向传播，最终通过随机梯度下降（SGD）使模型收敛，得到各网络层的参数{ W<sub>i</sub> , b<sub>i</sub> }。
 
 LSTM-DSSM针对DSSM表示层无法捕获上下文特征的缺点，使用加入了peephole的LSTM代替DNN对句子进行向量表示。加入peephole的LSTM其实就是将上一个时间步的单元状态 c<sub>t-1</sub>也作为时刻t的输入，结构如下： 
 
