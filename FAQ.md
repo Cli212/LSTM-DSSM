@@ -26,7 +26,7 @@ DSSM 从下往上可以分为三层结构：输入层、表示层、匹配层
 
    ![1596684616334](images/1596684616334.png)
 
-   用$W_i$表示第 i 层的权值矩阵，$b_i$ 表示第 i 层的 bias 项。则第一隐层向量 l1（300 维），第 i 个隐层向量 li（300 维），输出向量 y（128 维）可以分别表示为：
+   用$W_i$表示第 i 层的权值矩阵，b<sub>i</sub> 表示第 i 层的 bias 项。则第一隐层向量 l1（300 维），第 i 个隐层向量 li（300 维），输出向量 y（128 维）可以分别表示为：
 
    用 tanh 作为隐层和输出层的激活函数：
 
@@ -40,13 +40,13 @@ DSSM 从下往上可以分为三层结构：输入层、表示层、匹配层
 
    其中 r 为 softmax 的平滑因子，D 为 Query 下的正样本，D-为 Query 下的负样本（采取随机负采样），D 为 Query 下的整个样本空间。
 
-   在训练阶段，通过极大似然估计，我们最小化损失函数：
+   在训练阶段，通过极大似然估计，我们最小化损失函数：<br>
 
-   $L=-log\prod\limits_{(Q,D^+)}{P(D^+|Q)}$
+   ![](https://latex.codecogs.com/svg.latex?L=-log\prod\limits_{(Q,D^+)}{P(D^+|Q)})
 
-   残差会在表示层的 DNN 中反向传播，最终通过随机梯度下降（SGD）使模型收敛，得到各网络层的参数{ $W_i$,$b_i$ }。
+   残差会在表示层的 DNN 中反向传播，最终通过随机梯度下降（SGD）使模型收敛，得到各网络层的参数{ W<sub>i</sub> , b<sub>i</sub>$ }。
 
-LSTM-DSSM针对DSSM表示层无法捕获上下文特征的缺点，使用加入了peephole的LSTM代替DNN对句子进行向量表示。加入peephole的LSTM其实就是将上一个时间步的单元状态$c_{t-1}$也作为时刻t的输入，结构如下： 
+LSTM-DSSM针对DSSM表示层无法捕获上下文特征的缺点，使用加入了peephole的LSTM代替DNN对句子进行向量表示。加入peephole的LSTM其实就是将上一个时间步的单元状态 c<sub>t-1</sub>也作为时刻t的输入，结构如下： 
 
 ![1596685072182](images/1596685072182.png)
 
@@ -62,14 +62,9 @@ LSTM-DSSM针对DSSM表示层无法捕获上下文特征的缺点，使用加入�
 
 损失函数由两部分组成，对于正例的损失函数和对于负例的损失函数：<br>
 ![](https://latex.codecogs.com/svg.latex?L_+(x_1,x_2)%20=%20\frac{1}{4}(1-E_w)^2)<br>
-![](https://latex.codecogs.com/svg.latex?L_-(x_1,x_2)%20=%20\begin{cases}%20E_w^2%20\quad%20if%20E_w%3Em\\0%20\quad%20otherwise\end{cases}) 
+![](https://latex.codecogs.com/gif.latex?L_-%28x_1%2Cx_2%29%20%3D%20%5Cbegin%7Bcases%7D%20E_w%5E2%20%5Cquad%20if%20E_w%3Em%5C%5C0%20%5Cquad%20otherwise%5Cend%7Bcases%7D)<br>
 ![](https://latex.codecogs.com/svg.latex?L%20=%20yL_+(x_1,x_2)+(1-y)L_-(x_1,x_2))<br>
 
-$L_+(x_1,x_2) = \frac{1}{4}(1-E_w)^2$
-
-$L_-(x_1,x_2) = \begin{cases} E_w^2 \quad if E_w>m\\0 \quad otherwise\end{cases} $
-
-$L = yL_+(x_1,x_2)+(1-y)L_-(x_1,x_2)$ 
 
 ### 使用方法	
 
