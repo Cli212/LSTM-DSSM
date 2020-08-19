@@ -60,8 +60,10 @@ LSTM-DSSM针对DSSM表示层无法捕获上下文特征的缺点，使用加入�
 
 ![1596689313588](images/1596689313588.png)
 
-损失函数由两部分组成，对于正例的损失函数和对于负例的损失函数：
-![](http://latex.codecogs.com/gif.latex?\L_+(x_1,x_2) = \frac{1}{4}(1-E_w)^2)
+损失函数由两部分组成，对于正例的损失函数和对于负例的损失函数：<br>
+![](https://latex.codecogs.com/svg.latex?L_+(x_1,x_2)%20=%20\frac{1}{4}(1-E_w)^2)<br>
+![](https://latex.codecogs.com/svg.latex?L_-(x_1,x_2)%20=%20\begin{cases}%20E_w^2%20\quad%20if%20E_w%3Em\\0%20\quad%20otherwise\end{cases}) 
+![](https://latex.codecogs.com/svg.latex?L%20=%20yL_+(x_1,x_2)+(1-y)L_-(x_1,x_2))<br>
 
 $L_+(x_1,x_2) = \frac{1}{4}(1-E_w)^2$
 
